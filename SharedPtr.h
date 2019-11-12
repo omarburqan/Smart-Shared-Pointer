@@ -7,26 +7,38 @@ template<typename T>
 class SharedPtr {
 
 	public:
-		explicit SharedPtr(T *ptr);
-
+		//Ctor from a raw-pointer of that type
+		explicit SharedPtr(T* ptr = NULL);
+		
+		//Dtor
 		~SharedPtr();
 		
-		SharedPtr(SharedPtr<T> const &); // copy constructor
+		// copy constructor
+		SharedPtr(SharedPtr<T> const &);
 
-		SharedPtr &operator=(SharedPtr<T> const &); // copy assignment
+		// copy constructor
+		SharedPtr &operator=(SharedPtr<T> const &);
 
+
+		//Operator ->: Member access (act like a raw ptr)
 		T *operator->() const;
 
+		//Operator *: Dereference (act like a raw ptr)
 		T &operator*() const;
-
-		operator bool() const; // logical expressions	
 		
+		//Allow the SharedPtr be tested for null in logical expressions
+		operator bool() const; 	
+		
+		// Assignment from a raw-pointer of that type (type >> T)
+		SharedPtr<T> &operator=(T *t);
+		
+		//Provide a way to get the underlying raw ptr
 		T *get() const;
 
 	private:
 		T *m_ptr;
 		
-		size_t *m_counter;
+		unsigned int *m_counter;
 
 };
 
